@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <div id="app"></div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                text: "Accede a tu cuenta",
+                username: "",
+                newPostTitle: "",
+                newPostDescription: "",
+                isLogged: false,
+                posts: [{
+                    title: "Titulo 1",
+                    description: "Lorem ipsum dolor sit amet..."
+                }, {
+                    title: "Titulo 2",
+                    description: "Lorem ipsum dolor sit amet..."
+                }, {
+                    title: "Titulo 3",
+                    description: "Lorem ipsum dolor sit amet..."
+                }, {
+                    title: "Titulo 4",
+                    description: "Lorem ipsum dolor sit amet..."
+                }]
+            },
+            watch: {
+                isLogged (value) {
+                    if (value) {
+                        this.text = "Cierra tu sesión"
+                    } else {
+                        this.text = "Accede a tu cuenta"
+                        this.username = ""
+                    }
+                }
+            },
+            methods: {
+                deletePost(index) {
+                    this.posts.splice(index, 1)
+                },
+                addPost() {
+                    this.posts.push({
+                        title: this.newPostTitle,
+                        description: this.newPostDescription
+                    })
+                    this.newPostTitle = ""
+                    this.newPostDescription = ""
+                }
+            },
+            computed: {
+                styles () {
+                    return this.isLogged ? [ 'logged-in' ] : [ 'signed-out' ]
+                }
+            },
+            template: `
+                <div class="container" :class="styles">
+                    <h2>{{ text }}</h2><br>
+                    <div v-if="isLogged">
+                        <p style="font-weight: bold;">Hola, {{ username }}</p>
+                        <div style="margin-bottom: 32px">
+                            <label>¿Qué pensás?</label>
+                            <input type="text" v-model="newPostTitle"/>
+                            <input type="text" v-model="newPostDescription"/>
+                            <button @click="addPost">Comentar</button>
+                        </div>
+                        <div class="list">
+                            <div v-for="(item, index) in posts" :key="index" class=item>
+                                <h4 style="margin: 0;">{{ item.title }}</h4>
+                                <p style="margin-top: 0;">{{ item.description }}</p>
+                                <button @click="deletePost(index)">X</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else>
+                        <label>Username</label>
+                        <input type="text" v-model="username" />
+                    </div>
+                    <button @click="isLogged = !isLogged">
+                        <span v-if="!isLogged">Acceder</span> 
+                        <span v-else>Salir</span>    
+                    </button>
+                </div>
+            `
+        })
+    </script>
+    <style>
+        html, body {
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #app, .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+        button:hover {
+            transform: scale(1.2);
+        }
+        button {
+            margin-top: 24px;
+            border: none;
+            background-color: white;
+            padding: 8px 24px;
+            border-radius: 12px;
+            transition: ease 0.2s;
+        }
+        .signed-out {
+            background-color: #eca1a6;
+        }
+        .logged-in {
+            background-color: #b5e7a0;
+        }
+        .list {
+            display: flex;
+            flex-direction: column;
+            height: 512px;
+            padding-right: 16px;
+            overflow-y: auto;
+        }
+        .item {
+            border: 1px solid #333333;
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+    </style>
+</body>
