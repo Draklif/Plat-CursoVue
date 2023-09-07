@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <div id="app"></div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                text: "Accede a tu cuenta",
+                username: "",
+                isLogged: false
+            },
+            watch: {
+                isLogged (value) {
+                    if (value) {
+                        this.text = "Cierra tu sesión"
+                    } else {
+                        this.text = "Accede a tu cuenta"
+                        this.username = ""
+                    }
+                }
+            },
+            computed: {
+                styles () {
+                    return this.isLogged ? [ 'logged-in' ] : [ 'signed-out' ]
+                }
+            },
+            template: `
+                <div class="container" :class="styles">
+                    <h2>{{ text }}</h2><br>
+                    <div v-if="isLogged">
+                        <p>Hola, {{ username }}</p>    
+                    </div>
+                    <div v-else>
+                        <label>Username</label>
+                        <input type="text" v-model="username" />
+                    </div>
+                    <button @click="isLogged = !isLogged">
+                        <span v-if="!isLogged">Acceder</span> 
+                        <span v-else>Salir</span>    
+                    </button>
+                </div>
+            `
+        })
+    </script>
+    <style>
+        html, body {
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #app, .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+        button:hover {
+            transform: scale(1.2);
+        }
+        button {
+            margin-top: 24px;
+            border: none;
+            background-color: white;
+            padding: 8px 24px;
+            border-radius: 12px;
+            transition: ease 0.2s;
+        }
+        .signed-out {
+            background-color: #eca1a6;
+        }
+        .logged-in {
+            background-color: #b5e7a0;
+        }
+    </style>
+</body>
