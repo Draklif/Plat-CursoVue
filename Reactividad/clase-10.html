@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <div id="app"></div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                firstName: "Jose",
+                lastName: "Rentería",
+                now: new Date()
+            },
+            methods: {
+                
+            },
+            computed: {
+                fullName () {
+                    return `${this.firstName} ${this.lastName}`
+                },
+                today () {
+                    return this.now.toLocaleDateString()
+                }
+            },
+            template: `
+                <div>
+                    <span>{{ fullName }}</span><br>
+                    <span>{{ today }}</span>
+                </div>
+            `
+        })
+    </script>
+</body>
+</html>
