@@ -7,14 +7,14 @@
 </head>
 <body>
     <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
-    <div id="app">{{ text }}</div>
+    <div id="app"></div>
     <script>
         var app = new Vue({
             el: '#app',
             data: {
-                text: 'Hello Vue!'
+                img: "https://picsum.photos/200/300"
             },
-            template: `<div v-once v-text="text"></div>`
+            template: `<img :src="img" v-bind:alt="img">`
         })
     </script>
 </body>
