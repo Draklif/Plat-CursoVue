@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <div id="app"></div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                text: "Puerta cerrada",
+                isDoorOpen: false
+            },
+            watch: {
+                isDoorOpen (value) {
+                    this.text = value ? "Puerta abierta" : "Puerta cerrada"
+                }
+            },
+            computed: {
+                label () {
+                    return this.isDoorOpen ? "Cerrar" : "Abrir"
+                }
+            },
+            template: `
+                <div>
+                    <span>{{ text }}</span><br>
+                    <button @click="isDoorOpen = !isDoorOpen">{{ label }}</button>
+                </div>
+            `
+        })
+    </script>
+</body>
