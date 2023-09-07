@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+    <div id="app"></div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                text: "Hello Vue!"
+            },
+            methods: {
+                input(e) {
+                    let value = e.target.value
+                    this.text = value
+                }
+            },
+            template: `
+                <div>
+                    <p>{{ text }}</p>
+                    <input 
+                        type="text" 
+                        v-model="text" 
+                    />
+                </div>
+            `
+        })
+    </script>
+</body>
+</html>
