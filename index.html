@@ -12,9 +12,29 @@
         var app = new Vue({
             el: '#app',
             data: {
-                img: "https://picsum.photos/200/300"
+                counter: 0
             },
-            template: `<img :src="img" v-bind:alt="img">`
+            methods: {
+                increment() {
+                    this.counter++
+                },
+                decrement() {
+                    this.counter--
+                    if (this.counter < 0) {
+                        this.reset()
+                    }
+                },
+                reset() {
+                    this.counter = 0
+                }
+            },
+            template: `
+                <div>
+                    <button v-on:click="increment">+</button>
+                    <button v-on:click="decrement">-</button>
+                    <button v-on:click="reset">Reset</button>
+                    <span>{{ counter }}</span>
+                </div>`
         })
     </script>
 </body>
