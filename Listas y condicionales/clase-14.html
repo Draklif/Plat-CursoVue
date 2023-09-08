@@ -42,6 +42,13 @@
                 }
             },
             methods: {
+                checkLogin() {
+                    if (this.username && !this.isLogged) {
+                        this.isLogged = true
+                    } else {
+                        this.isLogged = false
+                    }
+                },
                 deletePost(index) {
                     this.posts.splice(index, 1)
                 },
@@ -82,7 +89,7 @@
                         <label>Username</label>
                         <input type="text" v-model="username" />
                     </div>
-                    <button @click="isLogged = !isLogged">
+                    <button @click="checkLogin">
                         <span v-if="!isLogged">Acceder</span> 
                         <span v-else>Salir</span>    
                     </button>
